@@ -16,6 +16,7 @@
 
 package com.mvvmsample.data
 
+import android.util.Log
 import androidx.databinding.Bindable
 import androidx.databinding.ObservableField
 import androidx.databinding.ObservableInt
@@ -50,6 +51,7 @@ class ProfileLiveDataViewModel : ViewModel() {
     }
 
     fun onLike() {
+        Log.d("MvvmFragment", "onLike")
         _likes.value = (_likes.value ?: 0) + 1
     }
 }

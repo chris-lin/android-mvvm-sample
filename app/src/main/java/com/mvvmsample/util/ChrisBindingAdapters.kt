@@ -30,7 +30,7 @@ import com.mvvmsample.R
 import com.mvvmsample.data.Popularity
 
 
-object BindingAdapters {
+object ChrisBindingAdapters {
     /**
      * A Binding Adapter that is called whenever the value of the attribute `app:popularityIcon`
      * changes. Receives a popularity level that determines the icon and tint color to use.
