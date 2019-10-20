@@ -14,18 +14,13 @@
  * limitations under the License.
  */
 
-package com.mvvmsample.data
+package com.mvvmsample.viewmodel
 
 import android.util.Log
-import androidx.databinding.Bindable
-import androidx.databinding.ObservableField
-import androidx.databinding.ObservableInt
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import com.mvvmsample.BR
-import com.mvvmsample.util.ObservableViewModel
 
 
 /**
@@ -56,41 +51,8 @@ class ProfileLiveDataViewModel : ViewModel() {
     }
 }
 
-/**
- * As an alternative to LiveData, you can use Observable Fields and binding properties.
- *
- * `Popularity` is exposed here as a `@Bindable` property so it's necessary to call
- * `notifyPropertyChanged` when any of the dependent properties change (`likes` in this case).
- */
-class ProfileObservableViewModel : ObservableViewModel() {
-    val name = ObservableField("Ada")
-    val lastName = ObservableField("Lovelace")
-    val likes =  ObservableInt(0)
-
-    fun onLike() {
-        likes.increment()
-        // You control when the @Bindable properties are updated using `notifyPropertyChanged()`.
-        notifyPropertyChanged(BR.popularity)
-    }
-
-    @Bindable
-    fun getPopularity(): Popularity {
-        return likes.get().let {
-            when {
-                it > 9 -> Popularity.STAR
-                it > 4 -> Popularity.POPULAR
-                else -> Popularity.NORMAL
-            }
-        }
-    }
-}
-
 enum class Popularity {
     NORMAL,
     POPULAR,
     STAR
-}
-
-private fun ObservableInt.increment() {
-    set(get() + 1)
 }

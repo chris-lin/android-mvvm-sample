@@ -2,7 +2,6 @@ package com.mvvmsample
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.mvvmsample.ui.mvvm.MvvmFragment
 
 class MvvmActivity : AppCompatActivity() {
 

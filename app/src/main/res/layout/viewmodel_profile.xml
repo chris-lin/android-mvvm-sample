@@ -24,7 +24,7 @@
 
         <variable
             name="viewmodel"
-            type="com.mvvmsample.data.ProfileLiveDataViewModel"/>
+            type="com.mvvmsample.viewmodel.ProfileLiveDataViewModel"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

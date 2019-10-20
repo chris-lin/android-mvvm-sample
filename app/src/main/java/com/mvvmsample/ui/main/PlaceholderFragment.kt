@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.mvvmsample.R
+import com.mvvmsample.viewmodel.PageViewModel
 
 /**
  * A placeholder fragment containing a simple view.

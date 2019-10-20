@@ -27,7 +27,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
 import com.mvvmsample.R
-import com.mvvmsample.data.Popularity
+import com.mvvmsample.viewmodel.Popularity
 
 
 object ChrisBindingAdapters {

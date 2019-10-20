@@ -1,4 +1,4 @@
-package com.mvvmsample.ui.mvvm
+package com.mvvmsample
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -7,15 +7,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
-import com.mvvmsample.R
-import com.mvvmsample.data.ProfileLiveDataViewModel
+import com.mvvmsample.viewmodel.ProfileLiveDataViewModel
 import com.mvvmsample.databinding.MvvmFragmentBinding
-import com.mvvmsample.databinding.ViewmodelProfileBinding
-import com.mvvmsample.ui.main.PageViewModel
-import com.mvvmsample.ui.main.PlaceholderFragment
 
 class MvvmFragment : Fragment() {
     val TAG = "MvvmFragment"
