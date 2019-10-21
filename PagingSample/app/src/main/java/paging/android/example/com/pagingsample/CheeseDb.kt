@@ -19,6 +19,7 @@ package paging.android.example.com.pagingsample
 import androidx.sqlite.db.SupportSQLiteDatabase
 import androidx.room.*
 import android.content.Context
+import paging.android.example.com.pagingsample.util.ioThread
 
 /**
  * Singleton database object. Note that for a real app, you should probably use a Dependency

@@ -14,25 +14,27 @@
  * limitations under the License.
  */
 
-package paging.android.example.com.pagingsample
+package paging.android.example.com.pagingsample.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.paging.Config
 import androidx.paging.toLiveData
+import paging.android.example.com.pagingsample.data.Colleague
+import paging.android.example.com.pagingsample.data.ColleagueDb
 import paging.android.example.com.pagingsample.util.ioThread
 
 /**
  * A simple ViewModel that provides a paged list of delicious Cheeses.
  */
-class CheeseViewModel(app: Application) : AndroidViewModel(app) {
-    val dao = CheeseDb.get(app).cheeseDao()
+class ColleagueViewModel(app: Application) : AndroidViewModel(app) {
+    val dao = ColleagueDb.get(app).colleagueDao()
 
     /**
      * We use -ktx Kotlin extension functions here, otherwise you would use LivePagedListBuilder(),
      * and PagedList.Config.Builder()
      */
-    val allCheeses = dao.allCheesesByName().toLiveData(Config(
+    val allCheeses = dao.allColleagueByName().toLiveData(Config(
             /**
              * A good page size is a value that fills at least a screen worth of content on a large
              * device so the User is unlikely to see a null item.
@@ -62,10 +64,10 @@ class CheeseViewModel(app: Application) : AndroidViewModel(app) {
             maxSize = 200))
 
     fun insert(text: CharSequence) = ioThread {
-        dao.insert(Cheese(id = 0, name = text.toString()))
+        dao.insert(Colleague(id = 0, name = text.toString()))
     }
 
-    fun remove(cheese: Cheese) = ioThread {
+    fun remove(cheese: Colleague) = ioThread {
         dao.delete(cheese)
     }
 }

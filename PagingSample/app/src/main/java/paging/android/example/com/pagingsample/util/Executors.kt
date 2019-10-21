@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package paging.android.example.com.pagingsample
+package paging.android.example.com.pagingsample.util
 
 import java.util.concurrent.Executors
 

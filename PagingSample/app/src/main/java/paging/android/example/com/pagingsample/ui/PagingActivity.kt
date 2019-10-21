@@ -29,6 +29,9 @@ import paging.android.example.com.pagingsample.CheeseAdapter
 import paging.android.example.com.pagingsample.CheeseViewHolder
 import paging.android.example.com.pagingsample.CheeseViewModel
 import paging.android.example.com.pagingsample.R
+import paging.android.example.com.pagingsample.viewmodel.ColleagueViewHolder
+import paging.android.example.com.pagingsample.viewmodel.ColleagueViewModel
+import androidx.lifecycle.ViewModelProviders
 
 /**
  * Shows a list of Cheeses, with swipe-to-delete, and an input field at the top to add.
@@ -38,7 +41,7 @@ import paging.android.example.com.pagingsample.R
  */
 class PagingActivity : AppCompatActivity() {
 
-    private val viewModel by viewModels<CheeseViewModel>()
+    private val viewModel by viewModels<ColleagueViewModel>()
 
 
 
@@ -49,9 +52,12 @@ class PagingActivity : AppCompatActivity() {
         println("onCreate")
 
         // Create adapter for the RecyclerView
-        val adapter = CheeseAdapter()
+        val adapter = ColleagueAdapter()
         cheeseList.adapter = adapter
         appTitle.text = "I love you"
+
+//        viewModel = ViewModelProviders.of(this).get(ColleagueViewModel::class.java)
+
 
         // Subscribe the adapter to the ViewModel, so the items in the adapter are refreshed
         // when the list changes
@@ -76,7 +82,7 @@ class PagingActivity : AppCompatActivity() {
             // automatically removed in response, because the adapter is observing the live list.
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 println("onSwiped")
-                (viewHolder as CheeseViewHolder).cheese?.let {
+                (viewHolder as ColleagueViewHolder).colleague?.let {
                     viewModel.remove(it)
                 }
             }

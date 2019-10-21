@@ -21,7 +21,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="paging.android.example.com.pagingsample.MainActivity">
+    tools:context="paging.android.example.com.pagingsample.ui.PagingActivity">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
