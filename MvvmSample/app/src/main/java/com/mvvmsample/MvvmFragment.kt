@@ -38,6 +38,10 @@ class MvvmFragment : Fragment() {
     ): View {
         Log.d(TAG, "onCreateView")
 
+//        // Obtain binding
+//        val binding: ViewmodelProfileBinding =
+//            DataBindingUtil.setContentView(this, R.layout.viewmodel_profile)
+
         var binding: MvvmFragmentBinding =
             DataBindingUtil.inflate(inflater, R.layout.mvvm_fragment, container, false)
 

@@ -18,6 +18,8 @@ package paging.android.example.com.pagingsample.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.paging.Config
 import androidx.paging.toLiveData
 import paging.android.example.com.pagingsample.data.Colleague
@@ -28,8 +30,10 @@ import paging.android.example.com.pagingsample.util.ioThread
  * A simple ViewModel that provides a paged list of delicious Cheeses.
  */
 class ColleagueViewModel(app: Application) : AndroidViewModel(app) {
+    private val _button = MutableLiveData("Hi")
     val dao = ColleagueDb.get(app).colleagueDao()
 
+    val button: LiveData<String> = _button
     /**
      * We use -ktx Kotlin extension functions here, otherwise you would use LivePagedListBuilder(),
      * and PagedList.Config.Builder()

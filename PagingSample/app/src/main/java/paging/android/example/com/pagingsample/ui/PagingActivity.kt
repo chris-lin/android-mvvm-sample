@@ -19,19 +19,17 @@ package paging.android.example.com.pagingsample.ui
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.inputmethod.EditorInfo
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_main.*
-import paging.android.example.com.pagingsample.CheeseAdapter
-import paging.android.example.com.pagingsample.CheeseViewHolder
-import paging.android.example.com.pagingsample.CheeseViewModel
 import paging.android.example.com.pagingsample.R
 import paging.android.example.com.pagingsample.viewmodel.ColleagueViewHolder
 import paging.android.example.com.pagingsample.viewmodel.ColleagueViewModel
 import androidx.lifecycle.ViewModelProviders
+import paging.android.example.com.pagingsample.databinding.ActivityMainBinding
 
 /**
  * Shows a list of Cheeses, with swipe-to-delete, and an input field at the top to add.
@@ -41,26 +39,41 @@ import androidx.lifecycle.ViewModelProviders
  */
 class PagingActivity : AppCompatActivity() {
 
-    private val viewModel by viewModels<ColleagueViewModel>()
-
+//    AndroidX libraries use this lightweight import for Lifecycle
+//    private val viewModel by viewModels<ColleagueViewModel>()
+//    private lateinit var viewModel: ColleagueViewModel
+    private val viewModel: ColleagueViewModel by lazy {
+        ViewModelProviders.of(this).get(ColleagueViewModel::class.java)
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
         println("onCreate")
+        super.onCreate(savedInstanceState)
+//        setContentView(R.layout.activity_main)
+
+        // An alternative ViewModel using Observable fields and @Bindable properties can be used:
+        // val viewModel = ViewModelProviders.of(this).get(ProfileObservableViewModel::class.java)
+
+        // Obtain binding
+        val binding: ActivityMainBinding =
+                DataBindingUtil.setContentView(this, R.layout.activity_main)
+
+        // Bind layout with ViewModel
+        binding.viewmodel = viewModel
+
+        // LiveData needs the lifecycle owner
+        binding.lifecycleOwner = this
 
         // Create adapter for the RecyclerView
         val adapter = ColleagueAdapter()
         cheeseList.adapter = adapter
-        appTitle.text = "I love you"
-
-//        viewModel = ViewModelProviders.of(this).get(ColleagueViewModel::class.java)
+//        appTitle.text = "I love you"
 
 
         // Subscribe the adapter to the ViewModel, so the items in the adapter are refreshed
         // when the list changes
+//        viewModel = ViewModelProviders.of(this).get(ColleagueViewModel::class.java)
         viewModel.allCheeses.observe(this, Observer(adapter::submitList))
 
         initAddButtonListener()
