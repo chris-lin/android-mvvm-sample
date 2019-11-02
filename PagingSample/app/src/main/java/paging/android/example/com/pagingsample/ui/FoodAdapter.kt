@@ -1,26 +1,10 @@
-/*
- * Copyright (C) 2017 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package paging.android.example.com.pagingsample.ui
 
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import android.view.ViewGroup
-import paging.android.example.com.pagingsample.data.Colleague
-import paging.android.example.com.pagingsample.viewmodel.ColleagueViewHolder
+import paging.android.example.com.pagingsample.data.Food
+import paging.android.example.com.pagingsample.viewmodel.FoodViewHolder
 
 /**
  * A simple PagedListAdapter that binds Cheese items into CardViews.
@@ -36,13 +20,13 @@ import paging.android.example.com.pagingsample.viewmodel.ColleagueViewHolder
  * @see android.arch.paging.PagedListAdapter
  * @see android.arch.paging.AsyncPagedListDiffer
  */
-class ColleagueAdapter : PagedListAdapter<Colleague, ColleagueViewHolder>(diffCallback) {
-    override fun onBindViewHolder(holder: ColleagueViewHolder, position: Int) {
+class FoodAdapter : PagedListAdapter<Food, FoodViewHolder>(diffCallback) {
+    override fun onBindViewHolder(holder: FoodViewHolder, position: Int) {
         holder.bindTo(getItem(position))
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ColleagueViewHolder =
-            ColleagueViewHolder(parent)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FoodViewHolder =
+            FoodViewHolder(parent)
 
     companion object {
         /**
@@ -55,15 +39,15 @@ class ColleagueAdapter : PagedListAdapter<Colleague, ColleagueViewHolder>(diffCa
          *
          * @see android.support.v7.util.DiffUtil
          */
-        private val diffCallback = object : DiffUtil.ItemCallback<Colleague>() {
-            override fun areItemsTheSame(oldItem: Colleague, newItem: Colleague): Boolean =
+        private val diffCallback = object : DiffUtil.ItemCallback<Food>() {
+            override fun areItemsTheSame(oldItem: Food, newItem: Food): Boolean =
                     oldItem.id == newItem.id
 
             /**
              * Note that in kotlin, == checking on data classes compares all contents, but in Java,
              * typically you'll implement Object#equals, and use it to compare object contents.
              */
-            override fun areContentsTheSame(oldItem: Colleague, newItem: Colleague): Boolean =
+            override fun areContentsTheSame(oldItem: Food, newItem: Food): Boolean =
                     oldItem == newItem
         }
     }

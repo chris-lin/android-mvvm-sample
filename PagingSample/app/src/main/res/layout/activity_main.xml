@@ -23,7 +23,7 @@
 
         <variable
             name="viewmodel"
-            type="paging.android.example.com.pagingsample.viewmodel.ColleagueViewModel" />
+            type="paging.android.example.com.pagingsample.viewmodel.FoodViewModel" />
     </data>
 
 <!--    <androidx.constraintlayout.widget.ConstraintLayout-->

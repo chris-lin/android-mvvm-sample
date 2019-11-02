@@ -1,19 +1,3 @@
-/*
- * Copyright (C) 2017 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package paging.android.example.com.pagingsample.ui
 
 import android.os.Bundle
@@ -26,8 +10,8 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_main.*
 import paging.android.example.com.pagingsample.R
-import paging.android.example.com.pagingsample.viewmodel.ColleagueViewHolder
-import paging.android.example.com.pagingsample.viewmodel.ColleagueViewModel
+import paging.android.example.com.pagingsample.viewmodel.FoodViewHolder
+import paging.android.example.com.pagingsample.viewmodel.FoodViewModel
 import androidx.lifecycle.ViewModelProviders
 import paging.android.example.com.pagingsample.databinding.ActivityMainBinding
 
@@ -40,10 +24,10 @@ import paging.android.example.com.pagingsample.databinding.ActivityMainBinding
 class PagingActivity : AppCompatActivity() {
 
 //    AndroidX libraries use this lightweight import for Lifecycle
-//    private val viewModel by viewModels<ColleagueViewModel>()
-//    private lateinit var viewModel: ColleagueViewModel
-    private val viewModel: ColleagueViewModel by lazy {
-        ViewModelProviders.of(this).get(ColleagueViewModel::class.java)
+//    private val viewModel by viewModels<FoodViewModel>()
+//    private lateinit var viewModel: FoodViewModel
+    private val viewModel: FoodViewModel by lazy {
+        ViewModelProviders.of(this).get(FoodViewModel::class.java)
     }
 
 
@@ -66,14 +50,14 @@ class PagingActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
 
         // Create adapter for the RecyclerView
-        val adapter = ColleagueAdapter()
+        val adapter = FoodAdapter()
         cheeseList.adapter = adapter
 //        appTitle.text = "I love you"
 
 
         // Subscribe the adapter to the ViewModel, so the items in the adapter are refreshed
         // when the list changes
-//        viewModel = ViewModelProviders.of(this).get(ColleagueViewModel::class.java)
+//        viewModel = ViewModelProviders.of(this).get(FoodViewModel::class.java)
         viewModel.allCheeses.observe(this, Observer(adapter::submitList))
 
         initAddButtonListener()
@@ -95,7 +79,7 @@ class PagingActivity : AppCompatActivity() {
             // automatically removed in response, because the adapter is observing the live list.
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 println("onSwiped")
-                (viewHolder as ColleagueViewHolder).colleague?.let {
+                (viewHolder as FoodViewHolder).food?.let {
                     viewModel.remove(it)
                 }
             }
