@@ -1,10 +1,16 @@
 package paging.android.example.com.pagingsample.ui
 
+import android.view.LayoutInflater
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.LifecycleOwner
+import paging.android.example.com.pagingsample.R
 import paging.android.example.com.pagingsample.data.Food
+import paging.android.example.com.pagingsample.databinding.CheeseItemBinding
 import paging.android.example.com.pagingsample.viewmodel.FoodViewHolder
+import paging.android.example.com.pagingsample.viewmodel.FoodViewModel
 
 /**
  * A simple PagedListAdapter that binds Cheese items into CardViews.
@@ -20,13 +26,37 @@ import paging.android.example.com.pagingsample.viewmodel.FoodViewHolder
  * @see android.arch.paging.PagedListAdapter
  * @see android.arch.paging.AsyncPagedListDiffer
  */
-class FoodAdapter : PagedListAdapter<Food, FoodViewHolder>(diffCallback) {
+//class FoodAdapter : PagedListAdapter<Food, FoodViewHolder>(diffCallback) {
+class FoodAdapter(private val viewModel: FoodViewModel, private val parentLifecycleOwner: LifecycleOwner) :
+        PagedListAdapter<Food, FoodViewHolder>(diffCallback) {
+
     override fun onBindViewHolder(holder: FoodViewHolder, position: Int) {
+        println("onBindViewHolder")
+
+        holder.binding.viewmodel = viewModel
+        holder.binding.position = position
+        holder.binding.lifecycleOwner = parentLifecycleOwner
+
         holder.bindTo(getItem(position))
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FoodViewHolder =
-            FoodViewHolder(parent)
+    // override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FoodViewHolder = FoodViewHolder(parent)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FoodViewHolder {
+        println("onCreateViewHolder")
+
+        val binding = createBinding(parent, viewType)
+
+        return FoodViewHolder(binding)
+    }
+
+    private fun createBinding(parent: ViewGroup, viewType: Int): CheeseItemBinding {
+        return DataBindingUtil.inflate(
+                LayoutInflater.from(parent.context),
+                R.layout.cheese_item,
+                parent,
+                false
+        )
+    }
 
     companion object {
         /**

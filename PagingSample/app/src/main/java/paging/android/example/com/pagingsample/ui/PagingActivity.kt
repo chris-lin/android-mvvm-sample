@@ -14,6 +14,7 @@ import paging.android.example.com.pagingsample.viewmodel.FoodViewHolder
 import paging.android.example.com.pagingsample.viewmodel.FoodViewModel
 import androidx.lifecycle.ViewModelProviders
 import paging.android.example.com.pagingsample.databinding.ActivityMainBinding
+import kotlin.random.Random
 
 /**
  * Shows a list of Cheeses, with swipe-to-delete, and an input field at the top to add.
@@ -32,12 +33,10 @@ class PagingActivity : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        println("onCreate")
         super.onCreate(savedInstanceState)
-//        setContentView(R.layout.activity_main)
 
         // An alternative ViewModel using Observable fields and @Bindable properties can be used:
-        // val viewModel = ViewModelProviders.of(this).get(ProfileObservableViewModel::class.java)
+        // val viewModel = ViewModelProviders.of(this).get(FoodViewModel::class.java)
 
         // Obtain binding
         val binding: ActivityMainBinding =
@@ -50,15 +49,23 @@ class PagingActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
 
         // Create adapter for the RecyclerView
-        val adapter = FoodAdapter()
+        val adapter = FoodAdapter(viewModel, this)
         cheeseList.adapter = adapter
-//        appTitle.text = "I love you"
-
 
         // Subscribe the adapter to the ViewModel, so the items in the adapter are refreshed
         // when the list changes
-//        viewModel = ViewModelProviders.of(this).get(FoodViewModel::class.java)
-        viewModel.allCheeses.observe(this, Observer(adapter::submitList))
+
+        // viewModel.allFoods.observe(this, Observer(adapter::submitList))
+        viewModel.allFoods.observe(this, Observer{pagedList->
+            println("Total list size: ${pagedList.size}")
+            val ran = (0 until pagedList.size).random()
+            // val ran = (0 until 10).random() // 0 ~ 9
+            // val ran = (0..10).random() // 0 ~ 10
+            // val ran = Random.nextInt(0, 10) // 0 ~ 9
+            println("selector item: $ran")
+            viewModel.selectorItem(ran)
+            adapter.submitList(pagedList)
+        })
 
         initAddButtonListener()
         initSwipeToDelete()

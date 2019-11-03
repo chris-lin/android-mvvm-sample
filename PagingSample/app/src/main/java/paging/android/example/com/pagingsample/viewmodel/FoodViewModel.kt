@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.paging.Config
 import androidx.paging.toLiveData
 import paging.android.example.com.pagingsample.data.Food
@@ -14,15 +15,18 @@ import paging.android.example.com.pagingsample.util.ioThread
  * A simple ViewModel that provides a paged list of delicious Cheeses.
  */
 class FoodViewModel(app: Application) : AndroidViewModel(app) {
-    private val _button = MutableLiveData("Hi")
+    private val _button = MutableLiveData("Add")
+
     val dao = FoodDb.get(app).foodDao()
 
     val button: LiveData<String> = _button
+
+    val eatItem = MutableLiveData(0)
     /**
      * We use -ktx Kotlin extension functions here, otherwise you would use LivePagedListBuilder(),
      * and PagedList.Config.Builder()
      */
-    val allCheeses = dao.allFoodByName().toLiveData(Config(
+    val allFoods = dao.allFoodByName().toLiveData(Config(
             /**
              * A good page size is a value that fills at least a screen worth of content on a large
              * device so the User is unlikely to see a null item.
@@ -57,5 +61,11 @@ class FoodViewModel(app: Application) : AndroidViewModel(app) {
 
     fun remove(cheese: Food) = ioThread {
         dao.delete(cheese)
+    }
+
+    fun selectorItem(number: Int) {
+        // selector.value?.plus(1)
+        // _selector.value = (_selector.value ?: 0) + 1
+        eatItem.value = number
     }
 }
