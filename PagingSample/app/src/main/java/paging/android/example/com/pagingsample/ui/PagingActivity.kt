@@ -57,8 +57,10 @@ class PagingActivity : AppCompatActivity() {
 
         // viewModel.allFoods.observe(this, Observer(adapter::submitList))
         viewModel.allFoods.observe(this, Observer{pagedList->
-            println("Total list size: ${pagedList.size}")
-            val ran = (0 until pagedList.size).random()
+            val size = pagedList.size
+            viewModel.foodSize = size
+            println("Total list size: $size")
+            val ran = (0 until size).random()
             // val ran = (0 until 10).random() // 0 ~ 9
             // val ran = (0..10).random() // 0 ~ 10
             // val ran = Random.nextInt(0, 10) // 0 ~ 9

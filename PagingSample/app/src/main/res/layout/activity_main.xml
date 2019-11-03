@@ -13,7 +13,7 @@
             android:id="@+id/addButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{viewmodel.button}"
+            android:text="@{viewmodel.addbutton}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="@string/add" />
@@ -26,9 +26,22 @@
             android:imeOptions="actionDone"
             android:inputType="text"
             android:maxLines="1"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/select"
             app:layout_constraintStart_toEndOf="@+id/addButton"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <Button
+            android:id="@+id/select"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@{viewmodel.chooseButton}"
+            android:onClick="@{() -> viewmodel.onChoose()}"
+            tools:text="@string/choose"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/inputText"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/inputText" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/cheeseList"

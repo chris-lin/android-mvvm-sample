@@ -15,13 +15,17 @@ import paging.android.example.com.pagingsample.util.ioThread
  * A simple ViewModel that provides a paged list of delicious Cheeses.
  */
 class FoodViewModel(app: Application) : AndroidViewModel(app) {
-    private val _button = MutableLiveData("Add")
+    private val _addbutton = MutableLiveData("Add")
+    private val _chooseButton = MutableLiveData("Choose")
+
+    val addbutton: LiveData<String> = _addbutton
+    val chooseButton: LiveData<String> = _chooseButton
 
     val dao = FoodDb.get(app).foodDao()
 
-    val button: LiveData<String> = _button
-
     val eatItem = MutableLiveData(0)
+
+    var foodSize = 0
     /**
      * We use -ktx Kotlin extension functions here, otherwise you would use LivePagedListBuilder(),
      * and PagedList.Config.Builder()
@@ -67,5 +71,11 @@ class FoodViewModel(app: Application) : AndroidViewModel(app) {
         // selector.value?.plus(1)
         // _selector.value = (_selector.value ?: 0) + 1
         eatItem.value = number
+    }
+
+    fun onChoose() {
+        println("onChoose")
+        val ran = (0 until foodSize).random()
+        selectorItem(ran)
     }
 }
